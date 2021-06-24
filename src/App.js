@@ -1,5 +1,6 @@
-import Board from "./components/Board";
-import SideBar from "./components/SideBar";
+import Board from "./components/Board/Board";
+import SideBar from "./components/SideBar/SideBar";
+
 import "antd/dist/antd.css";
 
 function App() {

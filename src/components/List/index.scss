@@ -1,0 +1,12 @@
+.list {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  &__wrapper {
+    margin: 10px;
+  }
+  &__body {
+    display: flex;
+    justify-content: space-between;
+  }
+}
