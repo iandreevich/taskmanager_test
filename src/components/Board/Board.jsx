@@ -2,7 +2,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import List from "../List/List";
 import { drag } from "../../store/actions/actions";
-import "./index.scss";
+import "./Board.scss";
 
 const Board = () => {
   const columns = useSelector((state) => state.columns);

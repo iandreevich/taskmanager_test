@@ -1,11 +1,11 @@
-import { Button } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Droppable } from "react-beautiful-dnd";
-import Task from "../Task/Task";
-import { useDispatch } from "react-redux";
 import { removeColumn } from "../../store/actions/actions";
-import "./index.scss";
+import Task from "../Task/Task";
+import "./List.scss";
 
 const List = ({ column, id }) => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const List = ({ column, id }) => {
                   borderRadius: 10,
                 }}
               >
-                {column.items &&
+                {column.items.length > 0 &&
                   column.items.map((task, index) => {
                     return (
                       <Task

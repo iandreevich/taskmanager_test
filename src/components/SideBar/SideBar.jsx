@@ -1,9 +1,9 @@
-import { Button, Input, Form } from "antd";
 import { useState } from "react";
-import TaskForm from "../TaskForm/TaskForm";
-import { addColumn } from "../../store/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import "./index.scss";
+import { Button, Input, Form } from "antd";
+import { addColumn } from "../../store/actions/actions";
+import TaskForm from "../TaskForm/TaskForm";
+import "./SideBar.scss";
 
 const SideBar = ({ openForm }) => {
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -11,7 +11,6 @@ const SideBar = ({ openForm }) => {
 
   const dispatch = useDispatch();
   const columns = useSelector((state) => state.columns);
-  console.log(columns.length);
 
   const addList = (e) => {
     setNewColumn(e.target.value);

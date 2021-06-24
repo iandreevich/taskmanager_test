@@ -1,9 +1,9 @@
-import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 import { CloseOutlined, LineOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { useDispatch } from "react-redux";
+
 import { removeTask } from "../../store/actions/actions";
 import TaskForm from "../TaskForm/TaskForm";
 
@@ -28,7 +28,7 @@ const Task = ({ task, index, column }) => {
               }}
             >
               <div style={styles.taskBody}>
-                <h4>{task.content}</h4>{" "}
+                <h4>{task.content}</h4>
                 <div style={styles.buttons}>
                   <Button
                     danger

@@ -1,11 +1,10 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, DatePicker, Checkbox, Select } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { addTask, changeTask } from "../../store/actions/actions";
-import { useState, useEffect } from "react";
-import FormMessage from "./FormMessage";
 import moment from "moment";
+import { addTask, changeTask } from "../../store/actions/actions";
+import FormMessage from "./FormMessage";
 
 const initData = {
   content: "",
@@ -13,7 +12,7 @@ const initData = {
   descrip: "",
   date: "",
   priority: false,
-  status: "planned",
+  status: "",
 };
 const { Option } = Select;
 
@@ -81,7 +80,20 @@ const TaskForm = ({ setIsOpenForm, setIsInfoFormOpen, task, column }) => {
     rules: [{ type: "string", message: "Please select time!" }],
   };
   return (
-    <Form style={styles.form} onFinish={handleSubmit}>
+    <Form
+      style={{
+        zIndex: 999,
+        width: "500px",
+        background: "#fff",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        padding: "50px 60px",
+        boxShadow: "0px 0px 17px 0px rgba(34, 60, 80, 0.2)",
+      }}
+      onFinish={handleSubmit}
+    >
       <Button
         danger
         style={{ position: "absolute", top: "0", right: "0", margin: ".5rem" }}
@@ -170,17 +182,4 @@ const TaskForm = ({ setIsOpenForm, setIsInfoFormOpen, task, column }) => {
   );
 };
 
-const styles = {
-  form: {
-    zIndex: 999,
-    width: "500px",
-    background: "#fff",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    padding: "50px 60px",
-    boxShadow: "0px 0px 17px 0px rgba(34, 60, 80, 0.2)",
-  },
-};
 export default TaskForm;
