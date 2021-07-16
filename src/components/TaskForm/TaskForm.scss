@@ -1,0 +1,32 @@
+.form {
+  .ant-form {
+    z-index: 999;
+    width: 500px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px 60px;
+    box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.2);
+  }
+  .ant-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5rem;
+  }
+  .ant-btn-primary {
+    width: 100%;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 2rem;
+  }
+  &__group {
+    display: flex;
+    justify-content: space-around;
+  }
+}

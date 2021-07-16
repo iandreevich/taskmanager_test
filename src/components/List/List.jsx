@@ -16,12 +16,9 @@ const List = ({ column, id }) => {
   return (
     <div className="list">
       <div className="list__wrapper">
-        <div className="list__body">
+        <div className="list__title">
           <h2>{column.name}</h2>
-          <Button
-            style={{ border: "none", boxShadow: "none" }}
-            onClick={() => deleteList(column.name)}
-          >
+          <Button onClick={() => deleteList(column.name)}>
             <DeleteOutlined />
           </Button>
         </div>
@@ -30,14 +27,11 @@ const List = ({ column, id }) => {
           {(provided, snapshot) => {
             return (
               <div
+                className="list__body"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={{
                   background: snapshot.isDraggingOver ? "#778899" : "#C0C0C0",
-                  padding: 4,
-                  width: 250,
-                  minHeight: 50,
-                  borderRadius: 10,
                 }}
               >
                 {column.items.length > 0 &&

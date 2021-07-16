@@ -1,9 +1,10 @@
 import Board from "./components/Board/Board";
 import SideBar from "./components/SideBar/SideBar";
+import "./App.scss";
 
 function App() {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="app">
       <SideBar />
       <Board />
     </div>

@@ -19,16 +19,19 @@ const SideBar = ({ openForm }) => {
     newColumn && dispatch(addColumn(newColumn));
     setNewColumn("");
   };
+  const handleFormChange = () => {
+    setIsOpenForm(!isOpenForm);
+  };
 
   return (
     <>
-      {isOpenForm && <TaskForm setIsOpenForm={setIsOpenForm} />}
+      {isOpenForm && <TaskForm handleFormChange={handleFormChange} />}
       <div className="sidebar">
         <h2 className="sidebar__logo">Task Manager</h2>
         <div className="sidebar__buttons">
           <Button
             type="primary"
-            onClick={() => setIsOpenForm(true)}
+            onClick={handleFormChange}
             disabled={Object.keys(columns).length === 0 ? true : false}
           >
             Add Task +
@@ -40,7 +43,7 @@ const SideBar = ({ openForm }) => {
             value={newColumn}
             onChange={addList}
           ></Input>
-          <Button type="primary" style={{ width: "100%" }} htmlType="submit">
+          <Button type="primary" htmlType="submit">
             Add List +
           </Button>
         </Form>

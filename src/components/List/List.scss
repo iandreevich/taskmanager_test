@@ -5,8 +5,19 @@
   &__wrapper {
     margin: 10px;
   }
-  &__body {
+  &__title {
     display: flex;
     justify-content: space-between;
+  }
+
+  &__body {
+    padding: 4px;
+    width: 250px;
+    min-height: 50px;
+    border-radius: 10px;
+  }
+  .ant-btn {
+    border: none;
+    box-shadow: none;
   }
 }

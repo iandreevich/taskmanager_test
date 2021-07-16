@@ -5,6 +5,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { addTask, changeTask } from "../../store/actions/actions";
 import FormMessage from "./FormMessage";
+import "./TaskForm.scss";
 
 const initData = {
   content: "",
@@ -16,7 +17,12 @@ const initData = {
 };
 const { Option } = Select;
 
-const TaskForm = ({ setIsOpenForm, setIsInfoFormOpen, task, column }) => {
+const TaskForm = ({
+  handleTaskInfoFormChange,
+  handleFormChange,
+  task,
+  column,
+}) => {
   const [data, setData] = useState(initData);
   const [errors, setErros] = useState([]);
   const { TextArea } = Input;
@@ -65,11 +71,11 @@ const TaskForm = ({ setIsOpenForm, setIsInfoFormOpen, task, column }) => {
       if (task) {
         setData({ ...data, ...task });
         dispatch(changeTask(data, column));
-        setIsInfoFormOpen(false);
+        handleTaskInfoFormChange();
       } else {
         dispatch(addTask(data));
         setData(initData);
-        setIsOpenForm(false);
+        handleFormChange();
       }
     }
   };
@@ -80,105 +86,90 @@ const TaskForm = ({ setIsOpenForm, setIsInfoFormOpen, task, column }) => {
     rules: [{ type: "string", message: "Please select time!" }],
   };
   return (
-    <Form
-      style={{
-        zIndex: 999,
-        width: "500px",
-        background: "#fff",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        padding: "50px 60px",
-        boxShadow: "0px 0px 17px 0px rgba(34, 60, 80, 0.2)",
-      }}
-      onFinish={handleSubmit}
-    >
-      <Button
-        danger
-        style={{ position: "absolute", top: "0", right: "0", margin: ".5rem" }}
-        onClick={() =>
-          setIsOpenForm ? setIsOpenForm(false) : setIsInfoFormOpen(false)
-        }
-      >
-        <CloseOutlined />
-      </Button>
+    <div className="form">
+      <Form onFinish={handleSubmit}>
+        <Button
+          danger
+          onClick={() =>
+            handleFormChange ? handleFormChange() : handleTaskInfoFormChange()
+          }
+        >
+          <CloseOutlined />
+        </Button>
 
-      <h3
-        style={{ textAlign: "center", fontSize: "20px", marginBottom: "2rem" }}
-      >
-        {setIsOpenForm ? "Add Task" : "Task Info"}
-      </h3>
-      <div>
-        <Form.Item label="Content">
-          <Input
-            placeholder="Enter content of task"
-            name="content"
-            onChange={handleChange}
-            value={content}
-          />
-          {errors.title && <FormMessage>{errors.title}</FormMessage>}
-        </Form.Item>
-        <Form.Item label="Author">
-          <Input
-            placeholder="Enter author of task"
-            name="author"
-            onChange={handleChange}
-            value={author}
-          />
-          {errors.author && <FormMessage>{errors.title}</FormMessage>}
-        </Form.Item>
-        <Form.Item label="Description">
-          <TextArea
-            rows={2}
-            placeholder="Enter description of task"
-            name="descrip"
-            onChange={handleChange}
-            value={descrip}
-          />
-        </Form.Item>
-        <Form.Item label="DatePicker" {...config}>
-          <DatePicker
-            disabledDate={disabledDate}
-            onChange={handleChangeDate}
-            name="date"
-            format={"DD.MM.YYYY"}
-            value={date !== "" && moment(date, "DD/MM/YYYY")}
-          />
-          {errors.date && <FormMessage>{errors.title}</FormMessage>}
-        </Form.Item>
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <Form.Item>
-            <Select
-              placeholder="Select a person"
-              value={status}
-              style={{ width: 180 }}
-              onChange={handleChangeSelect}
-            >
-              {Object.keys(columns).map((column) => {
-                return (
-                  <Option key={column} value={column}>
-                    {column}
-                  </Option>
-                );
-              })}
-            </Select>
+        <h3 className="form__title">
+          {handleFormChange ? "Add Task" : "Task Info"}
+        </h3>
+        <div>
+          <Form.Item label="Content">
+            <Input
+              placeholder="Enter content of task"
+              name="content"
+              onChange={handleChange}
+              value={content}
+            />
+            {errors.title && <FormMessage>{errors.title}</FormMessage>}
           </Form.Item>
-          <Form.Item label="Hight priority">
-            <Checkbox
-              onChange={handleCheckChange}
-              name="priority"
-              checked={priority}
+          <Form.Item label="Author">
+            <Input
+              placeholder="Enter author of task"
+              name="author"
+              onChange={handleChange}
+              value={author}
+            />
+            {errors.author && <FormMessage>{errors.title}</FormMessage>}
+          </Form.Item>
+          <Form.Item label="Description">
+            <TextArea
+              rows={2}
+              placeholder="Enter description of task"
+              name="descrip"
+              onChange={handleChange}
+              value={descrip}
             />
           </Form.Item>
+          <Form.Item label="DatePicker" {...config}>
+            <DatePicker
+              disabledDate={disabledDate}
+              onChange={handleChangeDate}
+              name="date"
+              format={"DD.MM.YYYY"}
+              value={date !== "" && moment(date, "DD/MM/YYYY")}
+            />
+            {errors.date && <FormMessage>{errors.title}</FormMessage>}
+          </Form.Item>
+          <div className="form__group">
+            <Form.Item>
+              <Select
+                placeholder="Select a person"
+                value={status}
+                onChange={handleChangeSelect}
+              >
+                {Object.keys(columns).map((column) => {
+                  return (
+                    <Option key={column} value={column}>
+                      {column}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Form.Item>
+            <Form.Item label="Hight priority">
+              <Checkbox
+                onChange={handleCheckChange}
+                name="priority"
+                checked={priority}
+              />
+            </Form.Item>
+          </div>
+          <Form.Item>
+            <Button htmlType="submit" type="primary">
+              {handleFormChange ? "Add" : "Save"}
+            </Button>
+          </Form.Item>
         </div>
-        <Form.Item>
-          <Button htmlType="submit" type="primary" style={{ width: "100%" }}>
-            {setIsOpenForm ? "Add" : "Save"}
-          </Button>
-        </Form.Item>
-      </div>
-    </Form>
+      </Form>
+    </div>
   );
 };
 

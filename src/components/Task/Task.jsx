@@ -6,10 +6,15 @@ import { Button } from "antd";
 
 import { removeTask } from "../../store/actions/actions";
 import TaskForm from "../TaskForm/TaskForm";
+import "./Task.scss";
 
 const Task = ({ task, index, column }) => {
   const [isInfoFormOpen, setIsInfoFormOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const handleTaskInfoFormChange = () => {
+    setIsInfoFormOpen(!isInfoFormOpen);
+  };
 
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -17,22 +22,21 @@ const Task = ({ task, index, column }) => {
         return (
           <>
             <div
+              className="task"
               ref={provided.innerRef}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
-              onClick={() => setIsInfoFormOpen(true)}
+              onClick={handleTaskInfoFormChange}
               style={{
-                ...styles.task,
                 background: snapshot.isDragging ? "#FF7F50" : "#FFA07A",
                 ...provided.draggableProps.style,
               }}
             >
-              <div style={styles.taskBody}>
+              <div className="task__body">
                 <h4>{task.content}</h4>
-                <div style={styles.buttons}>
+                <div className="task__buttons">
                   <Button
                     danger
-                    style={styles.button}
                     onClick={() => dispatch(removeTask(task.id, column))}
                   >
                     <CloseOutlined />
@@ -52,14 +56,13 @@ const Task = ({ task, index, column }) => {
               </p>
               <LineOutlined
                 style={{
-                  fontSize: "30px",
                   color: task.priority ? "red" : "green",
                 }}
               />
             </div>
             {isInfoFormOpen && (
               <TaskForm
-                setIsInfoFormOpen={setIsInfoFormOpen}
+                handleTaskInfoFormChange={handleTaskInfoFormChange}
                 task={task}
                 column={column}
               />
@@ -70,28 +73,5 @@ const Task = ({ task, index, column }) => {
     </Draggable>
   );
 };
-const styles = {
-  task: {
-    userSelect: "none",
-    padding: 16,
-    margin: "0 0 8px 0",
-    minHeight: "50px",
-    borderRadius: 10,
-    cursor: "pointer",
-  },
-  taskBody: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
 
-  button: {
-    border: "none",
-    fontSize: "15px",
-    background: "none",
-  },
-  buttons: {
-    display: "flex",
-  },
-};
 export default Task;
